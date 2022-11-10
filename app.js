@@ -4,26 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-require('dotenv').config();
-const connectionString =
-process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString,
-{useNewUrlParser: true,
-useUnifiedTopology: true});
-
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var huntingRouter = require('./routes/hunting');
-var Hunting = require("./models/hunting");
+var hunting = require("./models/hunting");
+const hunting = require('./models/hunting');
 
 var app = express();
 
@@ -36,6 +22,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -56,5 +52,39 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+async function recreateDB(){ 
+  // Delete everything 
+  await hunting.deleteMany(); 
+ 
+  let instance1 = new hunting({hunting_item:"Rifle", hunting_item_price:800.00, hunting_item_quantity:2}); 
+  let instance2 = new hunting({hunting_item:"Binoculars", hunting_item_price:150.00, hunting_item_quantity:1});
+  let instance3 = new hunting({hunting_item:"Bow", hunting_item_price:800.00, hunting_item_quantity:1});
+
+  instance1.save( function(err,doc) { 
+    if(err) return console.error(err); 
+    console.log("First object saved") 
+  }); 
+
+  instance2.save( function(err,doc) { 
+    if(err) return console.error(err); 
+    console.log("Second object saved") 
+  }); 
+
+  instance3.save( function(err,doc) { 
+  if(err) return console.error(err); 
+  console.log("Third object saved") 
+  }); 
+
+}
+let reseed = true;
+if (reseed) { recreateDB();}
 
 module.exports = app;
