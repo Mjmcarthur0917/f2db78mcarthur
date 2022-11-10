@@ -33,3 +33,16 @@ exports.hunting_delete = function(req, res) {
 exports.hunting_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: Hunting update PUT' + req.params.id);
 };
+
+//VIEWS 
+// Handle a show all view 
+exports.hunting_view_all_Page = async function(req, res) { 
+    try{ 
+        theHunting = await Hunting.find(); 
+        res.render('hunting', { title: 'Hunting Search Results', results: theHunting }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+};
