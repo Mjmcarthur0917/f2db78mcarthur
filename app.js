@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var huntingRouter = require('./routes/hunting');
 var hunting = require("./models/hunting");
-const hunting = require('./models/hunting');
+
 
 var app = express();
 
