@@ -1,9 +1,18 @@
 var Hunting = require('../models/hunting');
 
-// List of all Costumes
-exports.hunting_list = function(req, res) {
- res.send('NOT IMPLEMENTED: Hunting list');
+
+ // List of all Costumes
+exports.hunting_list = async function(req, res) {
+    try{
+        theHunting = await Hunting.find();
+        res.send(theHunting);
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+    }
 };
+
 
 // for a specific Costume.
 exports.hunting_detail = function(req, res) {
