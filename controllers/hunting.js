@@ -5,7 +5,7 @@ var Hunting = require('../models/hunting');
 exports.hunting_list = async function(req, res) {
     try{
         theHunting = await Hunting.find();
-        res.send(theHunting);
+        res.send('hunting',theHunting);
     }
     catch(err){
         res.status(500);
@@ -14,12 +14,20 @@ exports.hunting_list = async function(req, res) {
 };
 
 
-// for a specific Costume.
-exports.hunting_detail = function(req, res) {
- res.send('NOT IMPLEMENTED: Hunting detail: ' + req.params.id);
+// for a specific hunting item.
+exports.hunting_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await Hunting.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+   
 };
 
-// Handle Costume create on POST.
+// Handle Hunting create on POST.
 exports.hunting_create_post = async function(req, res) {
  
     console.log(req.body) 
