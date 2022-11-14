@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1= title
-  - let hunting=[{hunting_item:"Rifle", hunting_item_price:"800.00", hunting_item_quantity:"2"},{hunting_item:"Binoculars", hunting_item_price:"150.00", hunting_item_quantity:"1"},{hunting_item:"Bow", hunting_item_price:"800.00", hunting_item_quantity:"1"}]
-    
+  
+  - let items = result
     div(class="container-fluid mt-3")
     div(class="row")
         each hunting, index in hunting

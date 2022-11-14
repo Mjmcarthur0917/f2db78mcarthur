@@ -5,7 +5,7 @@ var Hunting = require('../models/hunting');
 exports.hunting_list = async function(req, res) {
     try{
         theHunting = await Hunting.find();
-        res.send('hunting',theHunting);
+        res.send(theHunting);
     }
     catch(err){
         res.status(500);
@@ -55,6 +55,25 @@ exports.hunting_delete = function(req, res) {
 };
 
 // Handle Costume update form on PUT.
+exports.hunting_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+   ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await Hunting.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.hunting_item)
+    toUpdate.hunting_item = req.body.hunting_item;
+    if(req.body.hunting_item_price) toUpdate.hunting_item_price = req.body.hunting_item_price;
+    if(req.body.hunting_item_quantity) toUpdate.hunting_item_quantity = req.body.hunting_item_quantity;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+   failed`);
+    }
+   };
 exports.hunting_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: Hunting update PUT' + req.params.id);
 };
@@ -63,8 +82,8 @@ exports.hunting_update_put = function(req, res) {
 // Handle a show all view 
 exports.hunting_view_all_Page = async function(req, res) { 
     try{ 
-        theHunting = await Hunting.find(); 
-        res.render('hunting', { title: 'Hunting Search Results', results: theHunting }); 
+        Hunting = await Hunting.find(); 
+        res.render('hunting', { title: 'Hunting Search Results', results: Hunting }); 
     } 
     catch(err){ 
         res.status(500); 
