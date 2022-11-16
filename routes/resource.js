@@ -19,4 +19,6 @@ router.put('/hunting/:id', hunting_controller.hunting_update_put);
 router.get('/hunting/:id', hunting_controller.hunting_detail);
 // GET request for list of all Costume items.
 router.get('/hunting', hunting_controller.hunting_list);
+/* GET detail hunting page */
+router.get('/detail', hunting_controller.hunting_view_one_Page);
 module.exports = router;
