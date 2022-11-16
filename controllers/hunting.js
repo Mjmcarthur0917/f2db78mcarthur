@@ -49,10 +49,19 @@ exports.hunting_create_post = async function(req, res) {
     
 };
 
-// Handle Costume delete form on DELETE.
-exports.hunting_delete = function(req, res) {
- res.send('NOT IMPLEMENTED: Hunting delete DELETE ' + req.params.id);
+// Handle Hunting delete form on DELETE.
+exports.hunting_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Hunting.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
 };
+
 
 // Handle Costume update form on PUT.
 exports.hunting_update_put = async function(req, res) {
