@@ -1,0 +1,20 @@
+extends layout
+block content
+ h1= title
+ - let huntingid = toShow._id
+ - let hunting_item = toShow.hunting_item
+ - let hunting_item_price = toShow.hunting_item_price
+ - let hunting_item_quantity = toShow.hunting_item_quantity
+ div
+ div.row
+ div(class='huntingAttr mr-3') Hunting ID is:
+ div #{huntingid}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item Type is:
+ div #{hunting_item}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item price is:
+ div #{hunting_item_price}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item Quantity is:
+ div #{hunting_item_quantity}

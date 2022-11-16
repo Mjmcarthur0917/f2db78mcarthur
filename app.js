@@ -42,6 +42,9 @@ app.use('/hunting', huntingRouter);
 app.use('/gridbuild', gridbuildRouter);
 app.use('/routes',resourceRouter);
 
+/* GET detail hunting page */
+router.get('/detail', hunting_controllers.hunting_view_one_Page);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
