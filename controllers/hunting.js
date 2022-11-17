@@ -141,3 +141,17 @@ exports.hunting_update_Page = async function(req, res) {
     res.send(`{'error': '${err}'}`);
     }
 };
+
+// Handle a delete one view with id from query
+exports.hunting_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await Hunting.findById(req.query.id)
+    res.render('huntingdelete', { title: 'Hunting Delete', toShow:
+   result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };

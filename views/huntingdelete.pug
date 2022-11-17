@@ -1,0 +1,45 @@
+extends layout
+block content
+ h1= title
+ - let huntingid = toShow._id
+ - let huntingitem = toShow.hunting_item
+ - let huntingprice = toShow.hunting_item_price
+ - let huntingquantity = toShow.hunting_item_quantity
+ div
+ div.row
+ div(class='huntingAttr mr-3') Hunting ID is:
+ div #{huntingid}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item Type is:
+ div #{huntingitem}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item price is:
+ div #{huntingprice}
+ div.row
+ div(class='huntingAttr mr-3') Hunting Item Quantity is:
+ div #{huntingquantity}
+
+ button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+ button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ script.
+ function cancel() {
+ // Go back to the home page for the costume collection
+ window.location.href='/hunting'
+ }
+ script.
+ function deleteOnid() {
+ console.log("starting delete")
+ // delete first
+ fetch(actionid, {
+ method: 'DELETE' 
+ }).then((resp) => {
+ return resp.json(); // or resp.text() or whatever the server sends
+ }).then((body) => {
+ alert("Delete succeded")
+ window.location.href='/hunting'
+ // TODO handle body
+ }).catch((error) => {
+ // TODO handle error
+ alert("Delete failed " + error )
+ });
+ }
