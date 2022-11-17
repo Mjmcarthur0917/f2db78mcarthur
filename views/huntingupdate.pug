@@ -1,0 +1,48 @@
+extends layout
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - var huntingid = toShow._id
+    - var huntingitem = toShow.hunting_item
+    - var huntingitemprice = toShow.hunting_item_price
+    - var huntingitemquantity = toShow.hunting_item_quantity
+
+  div(id='loader', style='display: none;')
+  h4 Hunting ID is: #{huntingid}
+  form(id='HuntingForm', action=`/resource/hunting/${huntingid}`, method="PUT")
+    div.form-group
+        label.huntingAttr(for='hunting_item') Hunting Item
+        input#hunting_item(type='text', name='hunting_item', value=huntingitem)
+    div.form-group
+        label.huntingAttr(for='hunting_item_price') Hunting Item Price
+        input#hunting_item_price(type='number', name='hunting_item_price', value=huntingitemprice)
+    div.form-group
+        label.huntingAttr(for='hunting_item_quantity') Hunting Item Quantity
+        input#hunting_item_quantity(type='number', name='hunting_item_quantity', value=huntingitemquantity)
+    input(type="submit")
+
+  script.
+    document.forms['HuntingForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('HuntingForm').style.display = 'none';
+        fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+            return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+            alert("Save succeded")
+            // TODO handle body
+        }).catch((error) => {
+            // TODO handle error
+            alert("Save failed " + error )
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('HuntingForm').style.display = 'block';
+        });
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('HuntingForm').style.display = 'block';
+    });

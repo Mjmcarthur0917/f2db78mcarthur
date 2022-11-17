@@ -21,4 +21,8 @@ router.get('/hunting/:id', hunting_controller.hunting_detail);
 router.get('/hunting', hunting_controller.hunting_list);
 /* GET detail hunting page */
 router.get('/detail', hunting_controller.hunting_view_one_Page);
+/* GET create costume page */
+router.get('/create', hunting_controller.hunting_create_Page);
+/* GET update costume page */
+router.get('/update', hunting_controller.hunting_update_Page);
 module.exports = router;
