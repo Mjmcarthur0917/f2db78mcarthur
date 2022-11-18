@@ -91,8 +91,11 @@ exports.hunting_update_put = function(req, res) {
 // Handle a show all view 
 exports.hunting_view_all_Page = async function(req, res) { 
     try{ 
+        console.log("about to find");
         Hunting = await Hunting.find(); 
+        console.log(Hunting);
         res.render('hunting', { title: 'Hunting Search Results', results: Hunting }); 
+
     } 
     catch(err){ 
         res.status(500); 

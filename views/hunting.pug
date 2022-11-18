@@ -3,15 +3,15 @@ extends layout
 block content
   h1= title
   
-  - let items = result
-    div(class="container-fluid mt-3")
+  - let items = results 
+  div(class="container-fluid mt-3")
     div(class="row m-1")
-        each item in items
-          - let destination = `dispatch(\"/hunting/update?id=${item._id}\")`
-          div(class="col-sm-3 bg-primary m-2 p-4") #{item.hunting_item} - #{item.hunting_item_price} - #{item.hunting_item_quantity}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
+      each item in items
+        - let destination = `dispatch(\"/hunting/update?id=${item._id}\")`
+        div(class="col-sm-3 bg-primary m-2 p-4") #{item.hunting_item} - #{item.hunting_item_price} - #{item.hunting_item_quantity}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
 
-    script.
+  script.
     function dispatch(path){
     window.location.href=path
     }
