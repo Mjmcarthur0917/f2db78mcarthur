@@ -4,8 +4,8 @@ var Hunting = require('../models/hunting');
  // List of all Costumes
 exports.hunting_list = async function(req, res) {
     try{
-        theHunting = await Hunting.find();
-        res.send(theHunting);
+        Hunting = await Hunting.find();
+        res.send(Hunting);
     }
     catch(err){
         res.status(500);
@@ -18,11 +18,11 @@ exports.hunting_list = async function(req, res) {
 exports.hunting_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try {
-    result = await Hunting.findById( req.params.id)
-    res.send(result)
+        result = await Hunting.findById(req.params.id)
+        res.send(result)
     } catch (error) {
-    res.status(500)
-    res.send(`{"error": document for id ${req.params.id} not found`);
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
     }
    
 };
@@ -53,12 +53,12 @@ exports.hunting_create_post = async function(req, res) {
 exports.hunting_delete = async function(req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Hunting.findByIdAndDelete( req.params.id)
-    console.log("Removed " + result)
-    res.send(result)
+        result = await Hunting.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
     } catch (err) {
-    res.status(500)
-    res.send(`{"error": Error deleting ${err}}`);
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
     }
 };
 
@@ -68,24 +68,20 @@ exports.hunting_update_put = async function(req, res) {
     console.log(`update on id ${req.params.id} with body
    ${JSON.stringify(req.body)}`)
     try {
-    let toUpdate = await Hunting.findById( req.params.id)
-    // Do updates of properties
-    if(req.body.hunting_item)
-    toUpdate.hunting_item = req.body.hunting_item;
-    if(req.body.hunting_item_price) toUpdate.hunting_item_price = req.body.hunting_item_price;
-    if(req.body.hunting_item_quantity) toUpdate.hunting_item_quantity = req.body.hunting_item_quantity;
-    let result = await toUpdate.save();
-    console.log("Sucess " + result)
-    res.send(result)
+        let toUpdate = await Hunting.findById( req.params.id)
+        // Do updates of properties
+        if(req.body.hunting_item)
+            toUpdate.hunting_item = req.body.hunting_item;
+        if(req.body.hunting_item_price) toUpdate.hunting_item_price = req.body.hunting_item_price;
+        if(req.body.hunting_item_quantity) toUpdate.hunting_item_quantity = req.body.hunting_item_quantity;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
     } catch (err) {
-    res.status(500)
-    res.send(`{"error": ${err}: Update for id ${req.params.id}
-   failed`);
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
     }
    };
-exports.hunting_update_put = function(req, res) {
- res.send('NOT IMPLEMENTED: Hunting update PUT' + req.params.id);
-};
 
 //VIEWS 
 // Handle a show all view 
@@ -107,13 +103,12 @@ exports.hunting_view_all_Page = async function(req, res) {
 exports.hunting_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
-    result = await Hunting.findById( req.query.id)
-    res.render('huntingdetail',
-   { title: 'Hunting Detail', toShow: result });
+        result = await Hunting.findById(req.query.id)
+        res.render('huntingdetail',{ title: 'Hunting Detail', toShow: result });
     }
     catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
 };
 
@@ -123,11 +118,11 @@ exports.hunting_view_one_Page = async function(req, res) {
 exports.hunting_create_Page = function(req, res) {
     console.log("create view")
     try{
-    res.render('huntingcreate', { title: 'Hunting Create'});
+        res.render('huntingcreate', { title: 'Hunting Create'});
     }
     catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
 };
 
@@ -136,12 +131,12 @@ exports.hunting_create_Page = function(req, res) {
 exports.hunting_update_Page = async function(req, res) {
     console.log("update view for item "+req.query.id)
     try{
-    let result = await Hunting.findById(req.query.id)
-    res.render('huntingupdate', { title: 'Hunting Update', toShow: result });
+        let result = await Hunting.findById(req.query.id)
+        res.render('huntingupdate', { title: 'Hunting Update', toShow: result });
     }
     catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
 };
 
@@ -149,12 +144,11 @@ exports.hunting_update_Page = async function(req, res) {
 exports.hunting_delete_Page = async function(req, res) {
     console.log("Delete view for id " + req.query.id)
     try{
-    result = await Hunting.findById(req.query.id)
-    res.render('huntingdelete', { title: 'Hunting Delete', toShow:
-   result });
+        result = await Hunting.findById(req.query.id)
+        res.render('huntingdelete', { title: 'Hunting Delete', toShow: result });
     }
     catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
    };

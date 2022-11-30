@@ -3,30 +3,31 @@ extends layout
 block content
  h1= title
  form(id='HuntingForm', action="/resource/hunting", method="POST")
- div.form-group
- label.huntingAttr(for='hunting_item') Hunting item
- input#hunting_item(type='text', name='hunting_item')
- div.form-group
- label.huntingAttr(for='hunting_item_price') Hunting Item Price
- input#size(type='number', name='hunting_item_price')
- div.form-group
- label.huntingAttr(for='hunting_item_quantity') Hunting item quantity
- input#cost(type='number', name='hunting_item_quantity')
- input(type="submit")
+    div.form-group
+        label.huntingAttr(for='hunting_item') Hunting item
+        input#hunting_item(type='text', name='hunting_item')
+    div.form-group
+        label.huntingAttr(for='hunting_item_price') Hunting Item Price
+        input#size(type='number', name='hunting_item_price')
+    div.form-group
+        label.huntingAttr(for='hunting_item_quantity') Hunting item quantity
+        input#cost(type='number', name='hunting_item_quantity')
+    input(type="submit")
+
  script.
- document.forms['HuntingForm'].addEventListener('submit', (event) => {
- event.preventDefault();
- // TODO do something here to show user that form is being submitted
- fetch(event.target.action, {
- method: 'POST',
- body: new URLSearchParams(new FormData(event.target)) // event.target is the form
- }).then((resp) => {
- return resp.json(); // or resp.text() or whatever the server sends
- }).then((body) => {
- alert("Save succeded")
- // TODO handle body
- }).catch((error) => {
- // TODO handle error
- alert("Save failed " + error )
- });
- });
+    document.forms['HuntingForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+            return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+            alert("Save succeded")
+            // TODO handle body
+        }).catch((error) => {
+            // TODO handle error
+            alert("Save failed " + error )
+        });
+    });
